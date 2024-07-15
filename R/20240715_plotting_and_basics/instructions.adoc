@@ -159,7 +159,7 @@ tuna_sandwich <- 5.5
 # You can add these objects together
 my_lunch <- apple + chocolate_bar + tuna_sandwich
 my_lunch
-
+```
 
 
 Task 3.4. Numbers vs letters
