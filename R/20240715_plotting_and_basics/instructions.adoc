@@ -53,7 +53,7 @@ setwd("C:/Users/username/exercise_folder")
 -----------------
 . The text between the quotation marks "" is the *_path_* to the folder you want to work from. *_Working directory_* is the folder you are working from. 
 
-image:screenshot1.png[alt="Screenshot1", width=80%]
+image:screenshots/screenshot1.png[alt="Screenshot1", width=80%]
 
 
 Task 2.2. Adapt the downloaded code
