@@ -163,7 +163,7 @@ my_lunch
 
 
 Task 3.4. Numbers vs letters
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```r
 # Anything between quotation marks are treated as letters, regardles if they are numbers or letters
 # Try the code below
