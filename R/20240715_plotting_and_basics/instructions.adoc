@@ -182,7 +182,8 @@ This error is saying that the values you tried to add together are not numbers. 
 ====
 
 
-Task 3.5. Combine words.
+Task 3.5. Combine words
+^^^^^^^^^^^^^^^^^^^^^^^
 ```r
 # You can stick words together using paste
 item1 <- "apple"
@@ -198,3 +199,19 @@ paste("lunch:", item1, item2, sep="  !!  ")
 
 ```
 
+
+Task 3.6. Functions
+^^^^^^^^^^^^^^^^^^^^^^^
+```r
+# There are many inbulit R function
+# paste and paste0 are examples that we have used so far.
+# Let's create a simple function
+describe_item_cost <- function(input_item, input_cost){
+	paste(input_item, "cost", "£", input_cost)
+}
+describe_item_cost(input_item = "apple", input_cost= "1.50")
+
+# You can skip out stating the variable names by giving the input in the correct order
+describe_item_cost("oranges", 3)
+
+```
