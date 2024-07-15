@@ -36,8 +36,8 @@ Task 2.1. Download files and setup
 Before going into details on how to write code in R, we will first take a look at an example pieces of code that can be used to make plots. 
 
 [upperalpha]
-. Download *r_boxplot.r*.
-. Download *data_eukaryote.csv*.
+. Download *r_boxplot.r* and *r_dotplot.r*.
+. Download *virus.csv* and *eukaryote.csv* from the *data* folder.
 . Create a folder specifically for this exercise. Create a folder named *data*
 . Move the downloaded files into a folder named *data* in your folder.
 . Open *r_boxplot.r* in RStudio. It should appear in the top left corner.
