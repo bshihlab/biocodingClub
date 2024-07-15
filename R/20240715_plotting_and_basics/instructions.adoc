@@ -201,7 +201,7 @@ paste("lunch:", item1, item2, sep="  !!  ")
 
 
 Task 3.6. Functions
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 ```r
 # There are many inbulit R function
 # paste and paste0 are examples that we have used so far.
