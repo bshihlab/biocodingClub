@@ -96,12 +96,18 @@ x
 -----------------
 
 Q1. What does the error you get from typing "x" mean?
+
 [%collapsible]
+====
 The error message "Error: object 'x' not found" means that R cannot find an object called x. When you see this error and you know that the object should be there, check that you haven't spelt it wrong (common mistakes are: missing a underscore, having an extra space, incorrect capitalisation) . In this case, the object isn't there.
+====
 
 Q2. Try adding a # before typing letters, what happens?
+
 [%collapsible]
+====
 R ignores everything that comes after a #. It is considered to be a comment. Comments are extremely useful and your future-self will thank you for making good comments.
+====
 
 
 
@@ -171,7 +177,9 @@ apple + chocolate_bar
 Q: Did you get an error? If you did, what went wrong? If you did not, check what is different between the code you have typed and the code above.
 
 [%collapsible]
+====
 This error is saying that the values you tried to add together are not numbers. Check that your objects are numeric by using class(chocolate_bar). Sometimes things can look like numbers, but R thinks they are not. This can be a problem when you import data where part of the column has characters like "NaN" instead of numbers.
+====
 
 
 Task 3.5. Combine words.
