@@ -38,7 +38,8 @@ You can put together multiple values as an object. This is a bit like a column i
 x <- 1
 x
 
-# You can put multiple strings or numerics together. They have to be the same type, like numbers (integer, double, single), characters (numbers, letters and symbols), logical (TRUE or FALSE)
+# You can put multiple strings or numerics together. They have to be the same type, like numbers (integer, double, single), 
+# characters (numbers, letters and symbols), logical (TRUE or FALSE)
 x <- c(1, 2, 3)
 x
 
@@ -153,11 +154,13 @@ x
 # Q6. What do you think the class is for x in Q4
 class(x)
 
-# Q7. Make a function that can convert celsius to fahrenheit. Apply your function to a vector. Check Task 3.6 for instructions on functions at https://github.com/bshihlab/biocodingClub/blob/main/R/20240715_plotting_and_basics/instructions.adoc
+# Q7. Make a function that can convert celsius to fahrenheit. Apply your function to a vector. 
+# Check Task 3.6 for instructions on functions at https://github.com/bshihlab/biocodingClub/blob/main/R/20240715_plotting_and_basics/instructions.adoc
 # Hint 1:
 # fahrenheit = celsius * 1.8 + 32 
 
-# Q8. Make your own function for calculate the stock solution and water required for diluting a solution to the desired concentration
+# Q8. Make your own function for calculate the stock solution and water required for diluting 
+# a solution to the desired concentration
 # Expected input:
 # - 1 stock concentration
 # - 1 final target volume
@@ -207,16 +210,22 @@ temp_celsius <- c(10, 20, 30, 40)
 fun_C2F(temp_celsius)
 
 # Q8
-# Assuming that stock concentration and target concentration has the same unit, and the stock volume and target volume have the same unit 
+# Assuming that stock concentration and target concentration has the same unit, 
+# and the stock volume and target volume have the same unit 
 fun_dilution <- function(stock_con, target_vol, target_con){
     # Calculate the required stock volume
     stock_vol <- target_con * target_vol / stock_con
-    # Subtract the stock solution volume from the target volume to get the amount of water required to make the diluted solution
+    # Subtract the stock solution volume from the target volume to get the 
+	# amount of water required to make the diluted solution
     water_vol <- target_vol - stock_vol
-    output <- paste0("stock concentration: ", stock_con, ", target concentration: ", target_con, ", stock volume: ", stock_vol, ", water volume: ", water_vol)
+    output <- paste0("stock concentration: ", stock_con, 
+					", target concentration: ", target_con, 
+					", stock volume: ", stock_vol, 
+					", water volume: ", water_vol)
     return(output)
 }
-# Use the created fuction with defined stock concentration and target volume to find out how to make a range of target concentrations
+# Use the created fuction with defined stock concentration and target volume 
+# to find out how to make a range of target concentrations
 fun_dilution(stock_con=100, target_vol=100, target_con=c(50, 10, 8))
 
 
@@ -236,7 +245,8 @@ We're going to look at some of the ways we can manipulate data frames in R using
 +
 ```r
 # Set working directory
-# Remember to get into the habbit of adding comments by adding # followed by explaination to your script. This will improve the readability of your code. This will help others and your future self understand why you did what you did.
+# Remember to get into the habbit of adding comments by adding # followed by explaination to your script. 
+# This will improve the readability of your code.
 setwd("C:\Users\shihb\OneDrive - Lancaster University\work\teaching\biocodingClub\R\20240722_data_organisation"
 ```
 . Save this Rscript in the folder created for today's work. You can use the shortcut keys [ Ctrl ] + [ S ] (Windows/Linux) or [ Cmd ] + [ S ] (Mac) to save.
@@ -249,7 +259,8 @@ setwd("C:\Users\shihb\OneDrive - Lancaster University\work\teaching\biocodingClu
 +
 ```r
 # Import data
-# Note that "data/cellprofiler_analysis.csv" refers to a file named "cellprofiler_analysis.csv" in the folder "data" within your working directory
+# Note that "data/cellprofiler_analysis.csv" refers to a file named "cellprofiler_analysis.csv" 
+# in the folder "data" within your working directory
 cellprofiler_analysis <- read.csv("data/cellprofiler_analysis.csv")
 
 ```
@@ -275,7 +286,8 @@ cellprofiler_analysis$ImageID
 # Look at the top 5 numbers of a vector
 head(cellprofiler_analysis$ImageID)
 
-# Refer to the whole column by its index. In R, you use a square bracket to refer to the [ row, column ]. Empty means refer to all
+# Refer to the whole column by its index. 
+# In R, you use a square bracket to refer to the [ row, column ]. Empty means refer to all
 cellprofiler_analysis[ , 1]
 
 # You can perform most of the functions in Task 1.2 on columns. Give them a try. For example:
@@ -285,10 +297,12 @@ sum(cellprofiler_analysis$ImageID)
 # Make a new column made from dividing Nuclear_intensity by Number_foci_method1 
 cellprofiler_analysis$Intensity_per_foci_method1 <- cellprofiler_analysis$Intensity / cellprofiler_analysis$Number_foci_method1  
 
-# Try repeating the above and make another column using Number_foci_method2. Remember to make it as another new column.
+# Try repeating the above and make another column using Number_foci_method2. 
+# Remember to make it as another new column.
 
 # You can use ncol to find out how many columns there are in a data frame
-# How many columns do you have now? It should be 7 by this point (6 plus the 2 new columns you have made with Number_foci_method1 and Number_foci_method2)
+# How many columns do you have now? It should be 8 by this point 
+# (6 plus the 2 new columns you have made with Number_foci_method1 and Number_foci_method2)
 ncol(cellprofiler_analysis)
 
 # You can also use dim (i.e. dimension) to find out the number of row and columns in a data frame
@@ -303,7 +317,8 @@ Import *image_annotation.csv*. Fill in the code below using the steps indicated 
 
 # Step2. Take a look at the top 5 lines of image_annotation
 
-# Step3. Which of the column should match those in cellprofiler_analysis? Do the column names match? If not, what are they? 
+# Step3. Which of the column should match those in cellprofiler_analysis? 
+# Do the column names match? If not, what are they? 
 
 ```
 
@@ -312,14 +327,16 @@ Import *image_annotation.csv*. Fill in the code below using the steps indicated 
 === Task 2.5. Merge
 Merging two tables together. It's usually a good practice to store sample or patient information in separate tables. For example, it's usually best to store patient metadata (for example, age, gender...etc) separately from experimental measurements (for example, immunofluoresence results). This way the storage of information isn't duplicated and there is less chance of mistakes. In this example, the image annotation is stored in a separate table from the image analysis.
 ```r
-# Import cellprofiler_analysis and image_annotation again to clear the columns you made in the earlier exercise
+# Import cellprofiler_analysis and image_annotation again to
+# clear the columns you made in the earlier exercise
 cellprofiler_analysis <- read.csv("data/cellprofiler_analysis.csv")
 image_annotation <- read.csv("data/image_annotation.csv")
 
 # Look at the column names of cellprofiler_analysis 
 colnames(cellprofiler_analysis)
 
-# Look at the column names of image_annotation. What is the column names that correspond to each other in these two data frames
+# Look at the column names of image_annotation. 
+# What is the column names that correspond to each other in these two data frames
 colnames(image_annotation)
 
 # You can use merge to merge the two tables together
@@ -329,7 +346,10 @@ annotated_analysis <- merge(x = cellprofiler_analysis, y = image_annotation, by.
 # Q. What happens to the column names in annotated_analysis. Are both of the column names for image ID kept?
 
 # Take a look at ?merge
-# You don't have to specify x and y in merge if it's given in the correct order (i.e. the first data frame you put in merge is consdiered to be x, the second data frame you put in merge is consdered to be y automatically). You need to fill in "" below with the correct column names.
+# You don't have to specify x and y in merge if it's given in the correct order 
+#(i.e. the first data frame you put in merge is consdiered to be x, 
+# the second data frame you put in merge is consdered to be y automatically). 
+# You need to fill in "" below with the correct column names.
 annotated_analysis <- merge(cellprofiler_analysis, image_annotation, by.x="", by.y="")
 
 ```
@@ -352,12 +372,14 @@ colnames(nuclei_per_image) <- c("ImageID", "NucleiCount")
 foci_per_image <- aggregate(data = annotated_analysis, Number_foci_method1 ~ ImageID , FUN = sum)
 
 # You can aggregate all columns other than the grouping column
-# You would need to subset to include only the columns you want to summarise and the grouping columns. This can be done by specifying the column names in a vector
+# You would need to subset to include only the columns you want to summarise and the grouping columns. 
+# This can be done by specifying the column names in a vector
 annotated_analysis_subset <- annotated_analysis[,c("Number_foci_method1", "Number_foci_method2", "Number_foci_method3", "ImageID")]
 foci_per_image <- aggregate(data = annotated_analysis_subset, . ~ ImageID , FUN = sum)
 
 
-# You can group values by multiple columns. For example, you can get the average number of foci (method 1) for each treatment + timepoint
+# You can group values by multiple columns. For example, 
+# you can get the average number of foci (method 1) for each treatment + timepoint
 avg_foci_per_nuclei <- aggregate(data = annotated_analysis, Number_foci_method1 ~ treatment + timepoint, FUN = mean)
 
 ```
@@ -391,8 +413,6 @@ annotated_analysis <- merge(x = cellprofiler_analysis, y = image_annotation, by.
 
 # Q2. Why doesn't the following work
 group_by_treatment <- aggregate(data = annotated_analysis, treatment ~ Intensity , FUN = mean)
-
-# Q3. You can use your own function in aggregate. Try to make a function that allows you to aggregate to get the mean of the top 10 values for each treatment + timepoint grouping using aggregate.
 
 
 ```
