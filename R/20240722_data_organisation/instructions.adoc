@@ -1,0 +1,421 @@
+= Data organisation
+
+== Background
+=== Glossery
+
+* *Console*: The text-based interfact that allows you to run code. Helpful messages running code (for examples, warnings or errors) also show up in the console.
+* *Path*: The specific location of a file or folder. It's like an address in the computer.
+* *Working directory*: The folder your coding environment is working from. Everything you tell the computer code to do will be relative to that location. For example, if you tell the code to "make a file called abc.txt", the computer code will make it in the working directory. If you tell the code to "read a file called xyz.txt", the computer code will look for this file in the working directory.
+* *Package/library*: In R, packages are a collection of code and data, a bit like a phone App. The location where the packages are stored is referred to as a library.
+* *Comments*: In R, text after # are treated as comments. They provide readable explaination/annotatio. It's important to develope a habbit of writing comments regularly, as they help others, and your future self, understand what the code is aiming to do.
+* *Objects*: Objects are used to store information. They allow for a name to be associated with each piece of information. You can kind of think of them as little containers with labels, each holding a piece information you have asked the computer to remember (for example, a number or a table).
+* *Function*: A block of code that can perform a specific task. For example, "mean" is a function in R that can be used to calculate the mean of a bunch of numbers.
+* *Data frame*: Data displayed in the format of a table.
+
+=== Shortcut keys 
+
+You can select all text using these shortcut keys:
+
+* [ Ctrl ] + [ A ] (Windows)
+* [ Cmd ] + [ A ] (Mac)
+
+You can run selected R code using these shortcut keys:
+
+* [ Ctrl ] + [ Enter ] (Windows)
+* [ Cmd ] + [ Enter ] (Mac)
+
+
+== Task 1. Vectors
+
+Before we import our data tables into R, we will first look at groupes of values. Tables are usually manipulated as groups of values referred to as vectors. 
+We can store multiple values under the same object. You can imagine it as a train where each carriage stores a value, and you can refer to each carriage by a ID.
+
+=== Task 1.1. 
+You can put together multiple values as an object. This is a bit like a column in Excel.
+
+```r
+# Single value object
+x <- 1
+x
+
+# You can put multiple strings or numerics together. They have to be the same type, like numbers (integer, double, single), characters (numbers, letters and symbols), logical (TRUE or FALSE)
+x <- c(1, 2, 3)
+x
+
+# For continuous integers (i.e. 1, 2, 3, 4, 5) you can use :
+x <- 3:5
+x
+
+# You can refer to each position of the vectors
+x[3]
+
+```
+
+=== Task 1.2.
+You can use some base R functions on the vectors.
+```r
+# Make a vector
+x <- 1:10
+
+# Look at vector
+x
+
+# Look at the first 5 values of the vector
+head(x)
+
+# Sum of the vector
+sum(x)
+
+# Standard deviation of the vector
+sd(x)
+
+# Mean of the vector
+mean(x)
+
+# Length of the vector
+length(x)
+
+# Maximum value in the vector
+max(x)
+
+# Minimum value in the vector
+min(x)
+
+# Unique values within the vector
+unique(x)
+
+# Add the same number to each element of a vector
+x + 1
+
+```
+
+
+=== Task 1.3. 
+You can use multiple vectors to make a new vector.  
+```r
+# What happens when you add 2 vectors of the same length
+x <- c(1, 2, 3, 4)
+y <- c(10, 20, 30, 40)
+x + y
+
+# You can do other non-mathmatical manipulations on vectors too
+paste0("Image", x, "_Nuclei", y)
+
+```
+
+
+=== Task 1.4.
+Computer programs likes data being organised in a specific way. It is important to have an awareness towards how coding languages deal with data types (class), as this will help you organise your data in a way that is analysis friendly.
+```r
+# The type of data is important, and R will force vector to become the same type
+# You can use class to find out the object class
+x <- c(1,2,3)
+class(x)
+
+# You can add new values to a vector 
+x[4] <- 5
+class(x)
+
+# What happens when you add a new value of a different type
+x[5] <- "a"
+class(x)
+
+```
+
+
+=== Task 1.5. Challenge
+```r
+# Q1. What happens when you put together a shorter vector with a longer vector
+x <- 1:4
+y <- c("24h", "36h")
+paste0("sample", x, "_", y)
+
+# Q2. What does the error mean?
+x <- 1:3
+y <- c(10, 20)
+x + y
+
+# Q3. Why does this work
+x <- 1:3
+y <- c(10, 20)
+paste0("sample", x, "_", y)
+
+# Q4. Why does the below give an error
+x <- 1:3
+y <- c(1, 2, "3")
+x + y
+
+# Q5. What happens if you add a new value to position 10 for a vector that is only 3 in length
+x <- 1:3
+x[10] <- 1
+x
+
+# Q6. What do you think the class is for x in Q4
+class(x)
+
+# Q7. Make a function that can convert celsius to fahrenheit. Apply your function to a vector. Check Task 3.6 for instructions on functions at https://github.com/bshihlab/biocodingClub/blob/main/R/20240715_plotting_and_basics/instructions.adoc
+# Hint 1:
+# fahrenheit = celsius * 1.8 + 32 
+
+# Q8. Make your own function for calculate the stock solution and water required for diluting a solution to the desired concentration
+# Expected input:
+# - 1 stock concentration
+# - 1 final target volume
+# - Multipe target concentrations 
+# The function should print out messages that describe the following:
+# - Input stock concentration
+# - Input target concentration
+# - The amount of stock solution requred to achieve the target volume
+# - The amount of water required to dilute the stock solution to reach the target volume.
+# Hint 1:
+# stock_concentration * stock_volume = target_concentration * target_volume
+# Therefore:
+# stock_volume = target_concentration * target_volume / stock_concentration
+# Hint 2:
+# Remember that the users are inputting the target_volume, which is made up of stock_volume + water
+
+
+```
+.Answers
+[%collapsible]
+====
+A1. The short vector will repeat up till the length of the long vector.
+
+A2. When you apply mathmatical operations to vectors of different lengths, the length of the long vector need to be divisible by the length of the short vector. In this case, the shorter vector (length of 2) is not divisible to the longer vector (length of 3).
+
+A3. Paste is not restricted by the same requirement of needing the longer vector to be divisible by the shorter one. The shorter one just repeats until the end of the longer vector.
+
+A4. In the error message. "Non-numeric" refers to vector y - "3" is treated as a character, not a number.
+
+A5. It will fill in all the positions without a value with NA (not available).
+
+A6. It's important to check what the vector class is if you get an error message. When your input data have blank values, it might be treated as NA or "" when you import into R. Sometimes you want it as NA, sometimes you might want to convert them into "".
+
+====
+
+```r
+# Example answers to Challange Q7 and Q8.
+# Q7
+# Celsius to fahrenheit function
+fun_C2F <- function(in_celsius){
+    out_fahrenheit <- (in_celsius * 1.8) + 32
+    return(out_fahrenheit)
+}
+# Create a vector object with several temperatures in celsius 
+temp_celsius <- c(10, 20, 30, 40)
+# Use the created function to convert temperatures in celsius into fahrenheit
+fun_C2F(temp_celsius)
+
+# Q8
+# Assuming that stock concentration and target concentration has the same unit, and the stock volume and target volume have the same unit 
+fun_dilution <- function(stock_con, target_vol, target_con){
+    # Calculate the required stock volume
+    stock_vol <- target_con * target_vol / stock_con
+    # Subtract the stock solution volume from the target volume to get the amount of water required to make the diluted solution
+    water_vol <- target_vol - stock_vol
+    output <- paste0("stock concentration: ", stock_con, ", target concentration: ", target_con, ", stock volume: ", stock_vol, ", water volume: ", water_vol)
+    return(output)
+}
+# Use the created fuction with defined stock concentration and target volume to find out how to make a range of target concentrations
+fun_dilution(stock_con=100, target_vol=100, target_con=c(50, 10, 8))
+
+
+```
+
+== Task 2. Data frame
+Data frame in R resembles Excel tables. It expect data in all cells to the maximum row/column. 
+We're going to look at some of the ways we can manipulate data frames in R using cellprofiler output as examples. Cellprofiler is an image analysis program that is useful for automating analysis of large number of images, mainly designed for microscopy images. In this example, we're looking at cellprofiler output that count the number of foci (little specs) within cell nuclei in immunofluoresence staining across multiple images and experimental conditions.
+
+=== Task 2.1. Set up.
+[upperalpha]
+. Create a folder for today's work.
+. Download example data files (cellprofiler_analysis.csv and image_annotation.csv) from the data folder and put them in a folder named "data" in the folder you created in Step A. Make sure you spell "data" exactly the same (i.e. no capitalisation. Coding is usually sensitive to capitalisation).
+. Set working directory to the folder you created in Step A. You can find the instructions for this under Task 2G in https://github.com/bshihlab/biocodingClub/blob/main/R/20240715_plotting_and_basics/instructions.adoc
+. Open a new R script and save your code. You can open an R script by going to File > New File > R Script.
+. Copy the line in the *Console* (bottom left panel) that set your working directory into your R script. It should look something like the below.
++
+```r
+# Set working directory
+# Remember to get into the habbit of adding comments by adding # followed by explaination to your script. This will improve the readability of your code. This will help others and your future self understand why you did what you did.
+setwd("C:\Users\shihb\OneDrive - Lancaster University\work\teaching\biocodingClub\R\20240722_data_organisation"
+```
+. Save this Rscript in the folder created for today's work. You can use the shortcut keys [ Ctrl ] + [ S ] (Windows/Linux) or [ Cmd ] + [ S ] (Mac) to save.
+. From hereon, type the code in this Rscript in the top left panel. You can run lines of code by highlighting them and press [ Ctrl ] + [ Enter ] (Windows/Linux) or [ Cmd ] + [ Enter ] (Mac). This way you can save all the correct code in a file.
+
+
+### Task 2.2
+[upperalpha]
+. Import the example data files into R. You can do this by using the *Import* button on the top right panel, or using the code below:
++
+```r
+# Import data
+# Note that "data/cellprofiler_analysis.csv" refers to a file named "cellprofiler_analysis.csv" in the folder "data" within your working directory
+cellprofiler_analysis <- read.csv("data/cellprofiler_analysis.csv")
+
+```
+. You should now be able to see the data frame that you have imported in the top right panel. You can click on cellprofiler_analysis in this top right panel, which will open the data frame in the top left panel. 
+. You can also look at the beginning of a data frame by using the below:
+
+```r
+# Print the top 5 rows of a data frame
+# This is particularly useful for taking a quick look at the column names/data 
+head(cellprofiler_analysis)
+```
+
+=== Task 2.3.
+By using the $ symbol, you can refer to the columns in a data frame as a vector and do different functions on them, much like those in Task 1.2. You can also use these to create new columns.
+
+```r
+# Find out the column names
+colnames(cellprofiler_analysis)
+
+# Refer to the whole column by its name
+cellprofiler_analysis$ImageID
+
+# Look at the top 5 numbers of a vector
+head(cellprofiler_analysis$ImageID)
+
+# Refer to the whole column by its index. In R, you use a square bracket to refer to the [ row, column ]. Empty means refer to all
+cellprofiler_analysis[ , 1]
+
+# You can perform most of the functions in Task 1.2 on columns. Give them a try. For example:
+sum(cellprofiler_analysis$ImageID)
+
+# You can use columns from the same table to perform analysis
+# Make a new column made from dividing Nuclear_intensity by Number_foci_method1 
+cellprofiler_analysis$Intensity_per_foci_method1 <- cellprofiler_analysis$Intensity / cellprofiler_analysis$Number_foci_method1  
+
+# Try repeating the above and make another column using Number_foci_method2. Remember to make it as another new column.
+
+# You can use ncol to find out how many columns there are in a data frame
+# How many columns do you have now? It should be 7 by this point (6 plus the 2 new columns you have made with Number_foci_method1 and Number_foci_method2)
+ncol(cellprofiler_analysis)
+
+# You can also use dim (i.e. dimension) to find out the number of row and columns in a data frame
+dim(cellprofiler_analysis)
+```
+
+
+=== Task 2.4. 
+Import *image_annotation.csv*. Fill in the code below using the steps indicated in the comments below. Refer back to Task 2.2 on how you can do this.
+```r
+# Step1. Import image_annotation.csv
+
+# Step2. Take a look at the top 5 lines of image_annotation
+
+# Step3. Which of the column should match those in cellprofiler_analysis? Do the column names match? If not, what are they? 
+
+```
+
+
+
+=== Task 2.5. Merge
+Merging two tables together. It's usually a good practice to store sample or patient information in separate tables. For example, it's usually best to store patient metadata (for example, age, gender...etc) separately from experimental measurements (for example, immunofluoresence results). This way the storage of information isn't duplicated and there is less chance of mistakes. In this example, the image annotation is stored in a separate table from the image analysis.
+```r
+# Import cellprofiler_analysis and image_annotation again to clear the columns you made in the earlier exercise
+cellprofiler_analysis <- read.csv("data/cellprofiler_analysis.csv")
+image_annotation <- read.csv("data/image_annotation.csv")
+
+# Look at the column names of cellprofiler_analysis 
+colnames(cellprofiler_analysis)
+
+# Look at the column names of image_annotation. What is the column names that correspond to each other in these two data frames
+colnames(image_annotation)
+
+# You can use merge to merge the two tables together
+# Fill in the "" in the line below with the correct column names to combine the two tables
+annotated_analysis <- merge(x = cellprofiler_analysis, y = image_annotation, by.x="", by.y="")
+
+# Q. What happens to the column names in annotated_analysis. Are both of the column names for image ID kept?
+
+# Take a look at ?merge
+# You don't have to specify x and y in merge if it's given in the correct order (i.e. the first data frame you put in merge is consdiered to be x, the second data frame you put in merge is consdered to be y automatically). You need to fill in "" below with the correct column names.
+annotated_analysis <- merge(cellprofiler_analysis, image_annotation, by.x="", by.y="")
+
+```
+
+
+
+=== Task 2.5. Aggregate
+You can aggregate the information in a data frame. It goes like column_you_want_to_summarise ~ grouping_columns.
+```r
+# For example, you might want to work out how many nuclei there are per image.
+nuclei_per_image <- aggregate(data = annotated_analysis, NucleiID ~ ImageID, FUN = length)
+
+# Take a look at object_per_image  
+head(nuclei_per_image)
+
+# You might want to change the column names 
+colnames(nuclei_per_image) <- c("ImageID", "NucleiCount")
+
+# You can aggregate by other functions. For example, here is the total number of foci found in each image for method 1
+foci_per_image <- aggregate(data = annotated_analysis, Number_foci_method1 ~ ImageID , FUN = sum)
+
+# You can aggregate all columns other than the grouping column
+# You would need to subset to include only the columns you want to summarise and the grouping columns. This can be done by specifying the column names in a vector
+annotated_analysis_subset <- annotated_analysis[,c("Number_foci_method1", "Number_foci_method2", "Number_foci_method3", "ImageID")]
+foci_per_image <- aggregate(data = annotated_analysis_subset, . ~ ImageID , FUN = sum)
+
+
+# You can group values by multiple columns. For example, you can get the average number of foci (method 1) for each treatment + timepoint
+avg_foci_per_nuclei <- aggregate(data = annotated_analysis, Number_foci_method1 ~ treatment + timepoint, FUN = mean)
+
+```
+
+=== Task 2.7. Order and save
+```r
+# You can sort data frame by columns. For exapmle, the line below sort the table by Number_foci_method1
+avg_foci_per_nuclei[order(avg_foci_per_nuclei$Number_foci_method1), ] 
+
+# You can sort by reverse order
+avg_foci_per_nuclei[order(avg_foci_per_nuclei$Number_foci_method1, decreasing = TRUE), ] 
+
+# You can sort by multiple column
+avg_foci_per_nuclei_sorted <- avg_foci_per_nuclei[order(avg_foci_per_nuclei$treatment, avg_foci_per_nuclei$timepoint), ]
+
+
+# You can save your work with the following. First indicate the data frame you want to save, followed by the file name. 
+write.csv(avg_foci_per_nuclei, "avg_foci_per_nuclei.csv")
+
+# By default, write.csv will output row.names. You can turn this off. Take a look at both files created in your working directory.
+write.csv(avg_foci_per_nuclei, "avg_foci_per_nuclei_no_rownames.csv", row.names=FALSE)
+
+```
+
+=== Task 2.7. Challenge
+```r
+# Q1. Why doesn't the following work
+cellprofiler_analysis <- read.csv("data/cellprofiler_analysis.csv")
+image_annotation <- read.csv("data/image_annotation.csv")
+annotated_analysis <- merge(x = cellprofiler_analysis, y = image_annotation, by.x="ImageID", by.y="Image_id")
+
+# Q2. Why doesn't the following work
+group_by_treatment <- aggregate(data = annotated_analysis, treatment ~ Intensity , FUN = mean)
+
+# Q3. You can use your own function in aggregate. Try to make a function that allows you to aggregate to get the mean of the top 10 values for each treatment + timepoint grouping using aggregate.
+
+
+```
+.Hints
+[%collapsible]
+====
+Q1: +
+Hint 1. Look at the error message. Where is 'by' used in the lines above. +
+Hint 2. Check through the column names carefully, including capitalisation.
+
+Q2: +
+Hint 1. Use head(group_by_treatment) to look at the output. +
+Hint 2. In the outputs for aggregate, the "group by" columns appear first columns. +
+Hint 3. Look back at the eariler exercises when we used aggregate, which side of the ~ are the grouping column placed in. +
+
+====
+
+
+.Answers
+[%collapsible]
+====
+A1. Where it says by.y = "Image_id", it should be by.y = "image_id". The i in image_id is not capitalised in the data.
+
+A2. It is trying to do a sum on the treatment column, but treatment column is made up of characters, not numbers. It has placed Intensity and treatment the wrong way round in Intensity ~ treatment. 
+
+====
