@@ -1,38 +1,33 @@
-Plotting and basics in R
-------------------------
+= Plotting and basics in R
 
-Background
-~~~~~~~~~~
-Glossery
-^^^^^^^^
+
+== Background
+=== Glossery
 * *Console*: The text-based interfact that allows you to run code. Helpful messages running code (for examples, warnings or errors) also show up in the console.
 * *Path*: The specific location of a file or folder. It's like an address in the computer.
 * *Working directory*: The folder your coding environment is working from. Everything you tell the computer code to do will be relative to that location. For example, if you tell the code to "make a file called abc.txt", the computer code will make it in the working directory. If you tell the code to "read a file called xyz.txt", the computer code will look for this file in the working directory.
 * *Package/library*: In R, packages are a collection of code and data, a bit like a phone App. The location where the packages are stored is referred to as a library.
 * *Comments*: In R, text after # are treated as comments. They provide readable explaination/annotatio. It's important to develope a habbit of writing comments regularly, as they help others, and your future self, understand what the code is aiming to do.
-* *Objects/variables*: Objects (usually called variables in other programming languages) are used to store information. They allow for a name to be associated with each piece of information. You can kind of think of them as little containers with labels, each holding a piece information you have asked the computer to remember (for example, a number or a table).
-* *Function*: A block of code that can perform a specific task. For exampl, "mean" is a function in R that can be used to calculate the mean of a bunch of numbers.
+* *Objects*: Objects are used to store information. They allow for a name to be associated with each piece of information. You can kind of think of them as little containers with labels, each holding a piece information you have asked the computer to remember (for example, a number or a table).
+* *Function*: A block of code that can perform a specific task. For example, "mean" is a function in R that can be used to calculate the mean of a bunch of numbers.
 
-Shortcut keys 
-^^^^^^^^^^^^^
+=== Shortcut keys 
 You can save files using these shortcut keys:
 
 * [ Ctrl ] + [ S ] (Windows)
 * [ Cmd ] + [ S ] (Mac)
 
 
-Task 1. Install R and RStudio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== Task 1. Install R and RStudio
 [upperalpha]
 . Install R https://cran.rstudio.com/[^]. 
 . Install RStudio https://posit.co/download/rstudio-desktop/[^].
 . The first time you open RStudio, it might ask you to select a specific version of R. It should automatically highlight on a version if you already installed R. If not, make sure you go to the first step to download and install R.
 
 
-Task 2. Example code
-~~~~~~~~~~~~~~~~~~~~
-Task 2.1. Download files and setup
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Task 2. Example code
+=== Task 2.1. Download files and setup
+
 Before going into details on how to write code in R, we will first take a look at an example pieces of code that can be used to make plots. 
 
 [upperalpha]
@@ -56,8 +51,7 @@ setwd("C:/Users/username/exercise_folder")
 image:screenshots/screenshot1.png[alt="Screenshot1", width=80%]
 
 
-Task 2.2. Adapt the downloaded code
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Task 2.2. Adapt the downloaded code
 
 [upperalpha]
 . Change Line 9 in *r_boxplot.r*. Replacce the text between "" with the *_path_* your *_working directory_*. Notice that there are *_comments_* after # symbols; these are descriptive texts not used by R.
@@ -71,12 +65,10 @@ Task 2.2. Adapt the downloaded code
 . Try and make plots using r_dotplot.r instead.
 
 
-Task 3. Back to basics
-~~~~~~~~~~~~~~~~~~~~~~
+== Task 3. Back to basics
 The purpose of jumping straight into code editing in the examples above is so that you experience code editing and reading *_comments_*. 
 
-Task 3.1. Try using R like a calculator
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Task 3.1. Try using R like a calculator
 [source,r]
 -----------------
 # Try using R like a calculator
@@ -87,8 +79,7 @@ Task 3.1. Try using R like a calculator
 -----------------
 
 
-Task 3.1. What happens when you type letters?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Task 3.2. What happens when you type letters?
 [source,r]
 -----------------
 # What happens when you type in letters instead of numbers?
@@ -111,8 +102,8 @@ R ignores everything that comes after a #. It is considered to be a comment. Com
 
 
 
-Task 3.2. Making objects (variables)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Task 3.3. Making objects (variables)
+
 We can store information in R as *_objects_* (usually referred to as variables in other programming language). You can make objects in R by using back arrows; this is made of 2 keyboard keys, lesser than symbol [ < ] and dash [ - ]. You can also just use the = symbol in most situation.
 
 ```r
@@ -138,8 +129,8 @@ very_long_name <- 1000
 a + very_long_name
 ```
 
-Task 3.3. Naming objects (variables)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Task 3.4. Naming objects (variables)
+
 Do:
 
 * Be descriptive 
@@ -165,8 +156,7 @@ my_lunch
 ```
 
 
-Task 3.4. Numbers vs letters
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Task 3.5. Numbers vs letters
 ```r
 # Anything between quotation marks are treated as letters, regardles if they are numbers or letters
 # Try the code below
@@ -182,8 +172,7 @@ This error is saying that the values you tried to add together are not numbers. 
 ====
 
 
-Task 3.5. Combine words
-^^^^^^^^^^^^^^^^^^^^^^^
+=== Task 3.6. Combine words
 ```r
 # You can stick words together using paste
 item1 <- "apple"
@@ -200,8 +189,7 @@ paste("lunch:", item1, item2, sep="  !!  ")
 ```
 
 
-Task 3.6. Functions
-^^^^^^^^^^^^^^^^^^^
+=== Task 3.7. Functions
 ```r
 # There are many inbulit R function
 # paste and paste0 are examples that we have used so far.
