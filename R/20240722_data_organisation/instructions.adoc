@@ -38,7 +38,8 @@ You can put together multiple values as an object. This is a bit like a column i
 x <- 1
 x
 
-# You can put multiple strings or numerics together. They have to be the same type, like numbers (integer, double, single), 
+# You can put multiple strings or numerics together. 
+# They have to be the same type, like numbers (integer, double, single), 
 # characters (numbers, letters and symbols), logical (TRUE or FALSE)
 x <- c(1, 2, 3)
 x
