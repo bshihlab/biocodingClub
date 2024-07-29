@@ -237,7 +237,7 @@ htmlwidgets::saveWidget(as_widget(p4_plotly), "output/plotly.html")
 
 ```
 
-=== Challenge 5. 
+== Challenge 5. 
 1. Try making a dotplot using genome size as x and protein count as y.
 2. Try adding GC content to the colour above.
 3. Try making the graph using eukaryote data.
