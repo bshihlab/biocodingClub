@@ -1,0 +1,245 @@
+= Plotting and basics in R
+
+
+== Background
+=== Shortcut keys 
+You can switch between windows by using
+* [ Alt ] + [ Tab ] (Windows)
+* [ Cmd ] + [ Tab ] (Mac)
+
+
+== Task 1. Setup
+=== Task 1.1. Download files 
+
+
+[upperalpha]
+. Create a folder for today's work.
+. Set working directory to the folder you created in Step A. You can use the code below to set working direcotry. Alternatively, you can find the instructions for this under Task 2G in https://github.com/bshihlab/biocodingClub/blob/main/R/20240715_plotting_and_basics/instructions.adoc.
+
++ 
+```r
+# You can also set working directory by using the code below
+# When you copy a path from Windows, the slashes are usually given this way round \, 
+# Make sure you change the slashes to this way round /  
+
+working_dir <- "C:/Users/username/exercise_folder"
+setwd(working_dir)
+```
+
+. Download *virus.csv* and *eukaryote.csv* from the *data* folder.
+. Create a folder specifically for this exercise. Create a folder named *data*.
+. Move the downloaded files into a folder named *data* in your folder.
+
+=== Taks 1.2. Install R packages and load libraries
+Libraries are a bit like phone apps - you can install them to perform tasks you want to do more effectively. Once you have installed a package, you can load the library.
+We will be using ggplot and plotly in this exericse. Sometimes when you're following a tutorial, and it's giving you an error saying a function cannot be found, you can try and google the name of the function along with the keywords "R library" - it may be that you haven't installed or load the R package.
+```r
+# install ggplot 
+install.packages("ggplot2")
+
+# install plotly
+install.packages("plotly")
+
+# Try the code below. What does the error mean?
+ggplot(data = plot_df)
+
+# Load ggplot
+library(ggplot2)
+
+# Try the code below. What does the error mean
+ggplot(data = plot_df)
+
+```
+
+
+=== Task 1.3. Import data
+```r
+# Read in the data file
+virus <- read.csv("data/virus.csv")
+eukaryote <- read.csv("data/eukaryote.csv")
+
+# Let's look at the first few rows of these data frames
+head(virus)
+head(eukaryote)
+
+# Notice that virus and eukaryote have different column names? 
+# If you can make new data frames with them with common names
+# Let's take these columns from each:
+# virus: "Organism_Name", "Host", "GC_Content", "Size_Kb", "Number_Of_Proteins"
+# eukaryote: "Organism_Name", "SubGroup", "GC_Content", "Size_Mb", "Number_Of_Proteins"
+# We can subset a data fram specifying the column names we want to pick
+virus_renamed <- virus[, c("Organism_Name", "Host", "GC_content", "Size_Kb", "Number_Of_Proteins")]
+eukaryote_renamed <- eukaryote[, c("Organism_Name", "SubGroup", "GC_content", "Size_Mb", "Number_Of_Proteins")]
+
+# If we rename each of these data frame, we can make plots for either dataset with the same code
+colnames(virus_renamed) <- c("Name", "Info", "GC", "Size", "Protein_Count")
+colnames(eukaryote_renamed) <- c("Name", "Info", "GC", "Size", "Protein_Count")
+
+# Set the plot data frame
+plot_df <- virus_renamed
+
+
+```
+
+== Task 2. Dot and boxplot in ggplot
+You can make a lot of different plots with ggplot. I will cover some of the common ones people use in biosciences. The full list of quick reference is here, but you might want to get comfortable with using ggplot on some simpler plots before going through the different options. https://rstudio.github.io/cheatsheets/html/data-visualization.html 
+
+=== Task 2.1. Basic dot plot and box plot
+```r
+# With ggplot, you need to first specify the data you want to plot
+ggplot(data = plot_df, aes(x=Info, y=Size))
+
+# You also want to specify the type of plot
+# geom_point() makes dot plot
+ggplot(data = plot_df, aes(x=Info, y=Size)) + geom_point()
+
+# geom_boxplot() makes boxplot
+ggplot(data = plot_df, aes(x=Info, y=Size)) + geom_boxplot()
+
+# You can make point plot on top of box plot
+# It's plotted in the order they're added 
+ggplot(data = plot_df, aes(x=Info, y=Size)) + geom_boxplot() + geom_point() 
+
+# What happens geom_boxplot and geom_point are swapped around?
+ggplot(data = plot_df, aes(x=Info, y=Size)) + geom_point() + geom_boxplot() 
+
+# Change the fill transparency of the boxplot
+ggplot(data = plot_df, aes(x=Info, y=Size)) + geom_point() + geom_boxplot(alpha=0.5) 
+
+
+```
+
+=== Task 2.2. Dot positions
+```r
+# I'm going to save the basic plot information into an object so I don't need to keep typing it
+p <- ggplot(data = plot_df, aes(x=Info, y=Size)) 
+
+# A lot of the dots are on top of each other, so it's hard to see their spread
+# You can add position jitter to add small amount of variation
+p + geom_point(position = position_jitter()) 
+
+# If you want to change the colour of all does, you can specify it inside geom_point
+# You can find a full list of inbulit r colours by typing
+# colours()
+p + geom_point(position = position_jitter(), colour="salmon") 
+
+# Where did the black dots come from?
+p + geom_point(position = position_jitter(), colour="salmon") + geom_boxplot()
+
+# Getting rid of outliers in boxplot so they are not plotted twice
+p + geom_point(position = position_jitter(), colour="salmon") + geom_boxplot(outlier.shape=NA)
+
+```
+
+=== Task 2.3. Label the graphs
+```r
+# You can type across multiple lines
+# This might help ease of reading
+# Let's store our current plot into p2
+p2 <- p + geom_point(position = position_jitter(), colour="salmon") + 
+		geom_boxplot(outlier.shape=NA, alpha = 0)
+
+# Change the axis labels and add a title
+p2 <- p2 + xlab("") + ylab("Size (kb)") + ggtitle("Virus size and host")
+p2
+
+# Change the theme/background
+p2 <- p2 + theme_bw()
+
+# You might want to centre the title
+p2 <- p2 + theme(plot.title = element_text(hjust=0.5))
+
+```
+
+=== Task 2.4. Reorder information
+```r
+# You may want to specify the order information is plotted. This can be done by using factor to specify order.
+
+# First find out the unique values in the Info column
+unique(plot_df$Info)
+
+# Let's say instead of alphabatical order, we want the plot to be ordered by this order: 
+# "human", "vertebrates", "invertebrates", "land plants" , "fungi", "archaea", "bacteria"
+plot_df$Info <- factor(plot_df$Info, levels=c("human", "vertebrates", "invertebrates", "land plants" , "fungi", "archaea", "bacteria"))
+
+# Remake the plot 
+ggplot(data = plot_df, aes(x=Info, y=Size)) +
+	geom_point()
+```
+
+
+=== Task 2.5. Cram in more information
+
+```r
+# How can we get more information into the same graph?
+head(plot_df)
+
+# Let's add in information on protein content
+ggplot(data = plot_df, aes(x=Info, y=Size)) +
+	geom_point(position = position_jitter(), aes(colour = Protein_Count)) 
+	
+# How about information on GC content as well
+ggplot(data = plot_df, aes(x=Info, y=Size)) +
+	geom_point(position = position_jitter(), aes(colour = Protein_Count, size=GC)) 
+
+# Put it all together (make sure you got all the + )
+p3 <- ggplot(data = plot_df, aes(x=Info, y=Size)) +
+	geom_point(position = position_jitter(), aes(colour = Protein_Count, size=GC)) +
+	geom_boxplot(outlier.shape=NA, alpha = 0, size=1, colour="lightblue") +
+	theme_bw() + theme(plot.title = element_text(hjust=0.5)) +
+	xlab("") + ylab("Size (kb)") + ggtitle("Virus size and host")
+p3
+
+```
+
+== Task 3. Saving plots
+```r
+# Make a output folder if it doesn't already exist
+dir.create('output', showWarnings=FALSE)
+
+# ggsave saves the last plot made using the given 
+# file extensions (for example, .pdf or .png)
+ggsave("output/virus.pdf")
+
+# Check the saved file. 
+# Notice that the default imgae size is too small
+# You can specify the output image size
+ggsave("output/virus.pdf", width = 10, height=6)
+
+# You can also use the R base graph saving functions
+pdf("output/virus2.pdf")
+p3
+dev.off()
+
+```
+
+== Task 4. Text and interactive plots
+You might want to use plots to look for any unusual data. Plotting text information, or converting ggplot objects into interactive plotly objects, might help you work out the outlier data points.
+
+=== Task 4.1. Plot text
+```r
+# Instead of points, we can plot text
+p4 <- ggplot(data = plot_df, aes(x=Info, y=Size)) +
+	geom_text(aes(label=Name), size=2) 
+
+
+```
+=== Task 4.2. Plotly 
+```r
+# Load plotly
+library(plotly)
+
+# Convert ggplot object into plotly object
+p4_plotly <- ggplotly(p4)
+
+# Save plotly as webpage (html)
+htmlwidgets::saveWidget(as_widget(p4_plotly), "output/plotly.html")
+
+```
+
+=== Challenge 5. 
+1. Try making a dotplot using genome size as x and protein count as y.
+2. Try adding GC content to the colour above.
+3. Try making the graph using eukaryote data.
+4. Try plotting aggregated data, using the mean (averaged for each host) genome size and protein count for the virus data.
+5. Try making either boxplot or dotplot using your own data.
