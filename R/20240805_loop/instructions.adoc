@@ -1,0 +1,211 @@
+= Plotting and basics in R
+
+
+== Background
+=== Shortcut keys 
+You can highlight text by using
+* [ Shift ] + [ Up/down/left/right arrow ] (Windows)
+
+
+== Task 1. Setup
+=== Task 1.1. Download files 
+[upperalpha]
+. Create a folder for today's work.
+. Set working directory to the folder you created in Step A. You can use the code below to set working direcotry. Alternatively, you can find the instructions for this under Task 2G in https://github.com/bshihlab/biocodingClub/blob/main/R/20240715_plotting_and_basics/instructions.adoc.
+
++ 
+```r
+# You can also set working directory by using the code below
+# When you copy a path from Windows, the slashes are usually given this way round \, 
+# Make sure you change the slashes to this way round /  
+
+working_dir <- "C:/Users/username/exercise_folder"
+setwd(working_dir)
+```
+
+. Download *Exp1.csv*, *Exp2.csv* and *Exp3.csv* from the *data* folder.
+. Create a folder specifically for this exercise. Create a folder named *data*.
+. Move the downloaded files into a folder named *data* in your folder.
+
+== Task 2. Loop
+=== Task 2.1. Loop through a vector
+```r
+# You can loop through the values in a vector
+# The varibale "fruit" in the example below can be anything that you name
+# The code will go through each item in "my_bag", and temporarily name name "fruit"
+my_bag <- c("apple", "orange", "banana")
+for(fruit in my_bag){
+	print(fruit)
+}
+
+# The values in a vector can be numbers or letters
+# You can change the variable name x in "for(x in y)" to something
+# that is more understandable to you in the context of your code
+my_bag <- c(1, 2, 3)
+for(num in my_bag){
+	print(num)
+}
+```
+
+=== Task 2.2. Loop through vector indexes
+```r
+# You can create a vector of sequential numbers in R
+my_bag <- 1:10
+my_bag
+for(num in my_bag){
+	print(num)
+}
+
+# You can find out the length of a vector 
+# you want to loop through (e.g. my_bag),
+# and then create a second vector that goes from
+# 1 to the length of this first vector 
+my_bag <- c("apple", "orange", "banana")
+my_cost <- c(0.5, 0.8, 0.8)
+counting_vector <- 1:length(my_bag)
+counting_vector
+for(idx in counting_vector){
+	print(idx) 
+}
+
+# You can then use these number to refer to the index
+# in your first vector (e.g. my_bag). 
+# You can also use this method to refer to values in another vector.
+my_bag <- c("apple", "orange", "banana")
+my_cost <- c(0.5, 0.8, 0.8)
+for(idx in counting_vector){
+	print(paste(idx, my_bag[idx])) 
+}
+
+# Usually people wouldn't store the counting vector
+for(idx in 1:length(my_bag)){
+	print(paste(idx, my_bag[idx]))
+}
+```
+
+
+== Task 3. Lists
+== Task 3.1. Split a data frame into a list (and vice versa)
+Instead of doing something to a vector, you may want to perform a series of tasks to data frames. For example, you might want to plot graphs for multiple genes.
+```r
+# Read in one of the data files
+exp_df <- read.csv("data/Exp1.csv")
+head(exp_df)
+
+# You can split a data frame into a list of data frames
+exp_list <- split(exp_df, exp_df$Gene)
+head(exp_list)
+names(exp_list)
+
+# You can refer to elements of a list by its name
+# Notice the double square bracket for referring to elements in a list
+exp_list[["COL1A1"]]
+exp_list[[1]]
+
+# You can combine a list of data frames into a single data frame if all column names match up
+exp_combined <- do.call(rbind, exp_list)
+```
+
+=== Task 3.2. Store data frames in a list
+```r
+# get all .csv files in a folder
+filenames <- list.files("data", pattern ="csv" )
+
+# Loop through the file names
+for(current_file_name in filenames){
+	# Read in each file
+	print(current_file_name)
+}
+
+# You can declare an empty list for storing values
+all_data <- list()
+
+# Read in each file
+for(current_file_name in filenames){
+	# Read in each file
+	print(current_file_name)
+	current_df <- read.csv(paste0("data/", current_file_name))
+
+	# Store the dataframe in the declared list
+	all_data[[current_file_name]] <- current_df
+}
+
+# Take a look at all_data
+class(all_data)
+names(all_data)
+head(all_data)
+
+# Beacause all data frames have the same column names, 
+# we can combine data from all 3 experiments.
+all_data_df <- do.call(rbind, all_data)
+class(all_data_df)
+names(all_data_df)
+head(all_data_df)
+
+```
+
+== Challenge 4. 
+1. Try to make a list of data frames, each data frame containing data from all 3 experiments for an individual gene.
+2. GAPDH is a housekeeping gene often used in real-time PCR. For calculating gene expression levels, you would need to calculate delta Ct (subtracting the Ct value for the housekeeping gene). Create a dotplot showing the average delta Ct for each gene in each experiemnt (i.e. subtracting the average Ct value for GAPDH from the average Ct for each gene for the same sample within the same experiment), colouring the dots by the treatment. Make the x-axis gene, and y-axis delta Ct; there should be 3 dots per gene and 3 genes along the x-axis. You can subset the data frame to one specific gene by doing this:
++ 
+```r
+exp_df <- read.csv("data/Exp1.csv")
+gapdh_df <- exp_df[exp_df$Gene %in% "GAPDH",]
+
+# Hint: You might want to try to calculate the delta Ct on just 
+# one experiment before using a loop to repeat the process to all 3 files. 
+# Hint: You might want to use the function "aggregate" and "merge" from previous
+# sessions.
+```
++
+```r
+## Challenge 4.1. Example answer.
+# List the files from the folder "data" with csv in their file names
+filenames <- list.files("data", pattern ="csv" )
+# Read in each file
+all_data <- list()
+for(current_file_name in filenames){
+	current_df <- read.csv(paste0("data/", current_file_name))
+	# Store the dataframe in the declared list
+	all_data[[current_file_name]] <- current_df
+}
+# Combine the list into a data frame
+all_data <- do.call(rbind, all_data)
+# Splt by gene
+all_data <- split(all_data, all_data$Gene)
+
+## Challenge 4.2. Example answer
+# List the files from the folder "data" with csv in their file names
+filenames <- list.files("data", pattern ="csv" )
+# Read in each file
+delta_ct <- list()
+for(current_file_name in filenames){
+	current_df <- read.csv(paste0("data/", current_file_name))
+	# Calculate the average Ct within each sample
+	avg_ct_df <- aggregate(data = current_df, Ct ~ Gene + Treatment , mean)
+	# Subset the data frame so it only contains values for GAPDH
+	avg_gapdh_df <- avg_ct_df[avg_ct_df$Gene %in% "GAPDH", ]
+	# Remove the "Gene" column from the GAPDH dataframe as it's not needed
+	avg_gapdh_df <- avg_gapdh_df[, c("Treatment", "Ct")] 
+	# Renames the column names for the GAPDH data frame 
+	# so it doesn't clash with the column naes for avg_ct_df
+	colnames(avg_gapdh_df) <- c("Treatment", "Ct_gapdh")
+	# Merge avg_ct_df with avg_gapdh_df
+	avg_ct_df <- merge(avg_ct_df, avg_gapdh_df, by.x="Treatment", by.y="Treatment")
+	# Subtract GAPDH ct from each gene
+	avg_ct_df$delta_ct <- avg_ct_df$Ct - avg_ct_df$Ct_gapdh
+	# Store the data frame with delta Ct
+	delta_ct[[current_file_name]] <- avg_ct_df
+}
+# Combine the list into a data frame for plotting
+plot_df <- do.call(rbind, delta_ct)
+
+# Load ggplot 
+library(ggplot2)
+# Make ggplot
+ggplot(data=plot_df, aes(x=Gene, y=delta_ct)) + 
+	geom_point(position = position_jitter(width = 0.3), aes(colour = Treatment)) +
+	theme_bw()
+
+```
+
