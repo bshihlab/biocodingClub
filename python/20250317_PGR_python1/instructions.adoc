@@ -1,0 +1,301 @@
+= Short Introduction to Python Programming 1
+
+== Basic Arithmetic Operators
+
+[source,python]
+----
+# Anything after a hash is a comment
+# Addition
+1 + 2 
+
+# Subtraction
+3 - 2 - 1
+
+# Multiplication
+2 * 3
+
+# Division
+6 / 3
+
+# Modulus 
+5 % 4
+5 % 3
+5 % 2
+
+# Exponentiation
+2**2
+2**3
+----
+
+== Variables
+[source,python]
+----
+# Values can be stored with as variables in Python. You can think of it as giving different values a name so you can refer to them by that name later in your code.
+# Be careful when naming your variables - spaces indicate that it's the end of the variable. Capitalisation is also important.
+
+group_1 = 2
+group_2 = 2
+
+# You can refer to these stored variables by calling their names
+group_1 + group_2
+
+----
+
+=== Challenge
+[source,python]
+----
+# What's wrong with the code below?
+# Challenge 1
+z + 100
+
+# Challenge 2
+group 1 = 1
+group 1 + 1
+
+# Challenge 3
+group1 = 1
+group2 = 2
+Group1 + group2
+
+# Challenge 4
+a = 100
+b = 0
+a/b
+----
+.Answer
+[%collapsible]
+====
+[source,python]
+----
+# Challenge 1: z hasn't been defined (you haven't assigned a value to z)
+# Challenge 2: There is a space in the variable name "group 1" - python will assume that the space indicates the end of the variable name.
+# Challenge 3: "Group1" in should be spelt as "group1" in the line that says Group1 + group2
+# Challenge 4: In mathematics, any values divided by zero is undefined.
+----
+====
+
+== Data types
+[source,python]
+----
+# So far we have looked at integers (int)
+type(1)
+type(2)
+
+# In Python, you can also have float, whch are numbers with decimal places
+type(1.0)
+type(1.2)
+
+# You can check the type for a variable
+a = 1
+b = 1.2
+type(a)
+type(b)
+
+# You can turn a float into an integer (this will "floor" the value)
+int(3.3)
+int(3.9)
+
+# Checking the variable types can be extremely useful when you're trying to follow a tutorial or troubleshooting.
+----
+
+== String
+[source,python]
+----
+# You can store a mixture of numbers and letters as strings by putting them in quotation marks
+s1 = "abc"
+s2 = "def123"
+
+# You can use either single/double quotation
+s1 = 'abc'
+s2 = "abc"
+
+# Numbers inside quotes are considered to be strings, even if they look like numbers
+s3 = "123"
+
+# You can add 2 strings together
+"abc" + "def"
+
+# You can convert numbers to string, or number-like strings into numbers
+x = str(123)
+y = int("123")
+type(x)
+type(y)
+
+# You can convert all the characters in a string from lower case to upper case or vice versa
+sequence = "aTCGAgcT"
+sequence.upper()
+sequence.lower()
+
+----
+
+=== Challenge
+[source,python]
+----
+# What's wrong with the code below?
+# Challenge 1
+s1 = def
+s1 + "g"
+
+# Challenge 2
+s1 = patientid
+
+# Challenge 3
+"patient" + 1
+
+# Challenge 4
+a = "123"
+a + 5
+
+----
+.Answer
+[%collapsible]
+====
+[source,python]
+----
+# Challenge 1: "def" should be inside quotation marks.
+# Challenge 2: "patientid" should be inside quotation marks.
+# Challenge 3: "patient" is a string and cannot be added to numbers.
+# Challenge 4: "123" is a string (because it's inside quotation marks), and therefore cannot be added to numbers.
+----
+====
+
+== Lists and indexes
+[source,python]
+----
+# You can store multiple values into a list
+my_list = [1, 2, 3, 4]
+
+# The values don't have to be the same type
+my_list = [1, "a", "b", 2]
+
+# You can find out the length of a list 
+len(my_list)
+
+# You can specify elements you want to include from a list [start_index : end_index_plus_1]
+my_list[0:2]
+
+# You can refer to different elements of the list by referring to its index
+# In Python index starts with 0
+my_list[0]
+my_list[2]
+
+# You can also refer to the index of a specific character in a string
+my_sequence = "ATCG"
+my_sequence[0]
+
+# However, you cannot do the same with numbers
+a = 123
+a[0]
+----
+
+
+=== Challenge
+[source,python]
+----
+# Challenge 1: Add the second element of both a and b to form the string "A2"
+a = ["A", "A", "B"]
+b = [1, 2, 4]
+
+# Challenge 2: a) How many amino acid residues are there in this sequence. b) How many are there that's left over (i.e. less than 3 so don't form a codon). c) Please store the sequence code for codons (i.e. remove the nucleotides that don't form a condon). Please write it in a way that you can change the sequence value into anything and would still work.
+sequence = "ATGTTTGTTTTTCTTGTTTT"
+
+----
+.Answer
+[%collapsible]
+====
+[source,python]
+----
+# Challenge 1: 
+a[1] + str(b[1])
+# Challenge 2: 
+# a) The length of the sequence is 20, so there are 6 amino acid residues
+int(len(sequence) / 3)
+# b) The left overs from the division can be found through %
+len(sequence) % 3
+# c) You can use the answer from A to find the length of the sequence that form codons
+num_residue = int(len(sequence) / 3)
+new_sequence = sequence[0:(num_residue * 3 )]
+
+----
+====
+
+== Dictionary
+[source,python]
+----
+# You can use dictionary to store key:value pairs
+# For example, you can use a dictionary to store the information on complementrary sequences
+complement = { 'A': 'T',
+                'T' : 'A',
+                'C' : 'G',
+                'G' : 'C' }
+complement["A"]
+complement["T"]
+
+# key:value pairs in dictionary is useful for fast lookup
+# The values in a dictionary can be a single value, another dictionary or a list.
+# For example, you can store all the patient information using patient ID as key, and to retrieve the data
+# Note that it's colon between key and value, not equal symbol.
+patient_metadata = { 'Sub1' : {'age' : 60, 'gender' : 'M'},
+                     'Sub2' : {'age' : 30, 'gender' : 'F'}, 
+                     'Sub3' : {'age' : 45, 'gender' : 'F'},   }
+patient_metadata['Sub2']['age'] 
+
+----
+
+=== Challenge
+[source,python]
+----
+# Challenge 1: (fix the code below)
+gender_convert = {"M" = "male", "F"= "female"}
+# Challenge 2: Given the patient_metadata dictionary above, write code that will print out the patient age and gender in a continuous sentence, for example
+# "Sub1 is 60 year-old and male."
+# Hint 1 - set a variable that store each of the variables
+patient_interest = "Sub1"
+# Hint 2 - complete the line below
+patient_interest_age = 
+# Hint 3 - complete the line below
+patient_interest_gender = 
+# Hint 4 - you would need to make a dictionary that translate M and F in to male and female for patient_interest_gender.
+
+# Hint 5 - put everything together (fix the error below)
+patient_interest + " is " + patient_interest_age + " year-old and " + patient_interest_gender + "."
+
+----
+.Answer
+[%collapsible]
+====
+[source,python]
+----
+# Challenge 1: Should be colons between key and values
+gender_convert = {"M" : "male", "F" : "female"}
+
+# Challenge 2:
+# Hint 1 - set a variable that store each of the variables
+patient_interest = "Sub1"
+# Hint 2 - complete the line below
+patient_interest_age = patient_metadata[patient_interest]["age"]
+# Hint 3 - complete the line below
+patient_interest_gender = patient_metadata[patient_interest]["gender"]
+# Hint 4 - you would need to make a dictionary that translate M and F in to male and female for patient_interest_gender.
+gender_convert = {"M" : "male", "F" : "female"}
+patient_interest_gender = gender_convert[patient_interest_gender]
+
+# Hint 5 - put everything together (fix the error below)
+patient_interest + " is " + str(patient_interest_age) + " year-old and " + patient_interest_gender + "."
+
+----
+====
+
+=== Loop
+[source,python]
+----
+my_sequence = "ATCG"
+# You can convert a string into a list 
+my_sequence = list(my_sequence)
+my_sequence
+
+# By using loop, you can go through each element in a list.
+for element in my_sequence:
+
+
+----
