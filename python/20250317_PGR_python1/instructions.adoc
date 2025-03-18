@@ -30,8 +30,10 @@
 == Variables
 [source,python]
 ----
-# Values can be stored with as variables in Python. You can think of it as giving different values a name so you can refer to them by that name later in your code.
-# Be careful when naming your variables - spaces indicate that it's the end of the variable. Capitalisation is also important.
+# Values can be stored with as variables in Python. 
+# You can think of it as giving different values a name so you can refer to them by that name later in your code.
+# Be careful when naming your variables - spaces indicate that it's the end of the variable. 
+# Capitalisation is also important.
 
 group_1 = 2
 group_2 = 2
@@ -68,7 +70,7 @@ a/b
 [source,python]
 ----
 # Challenge 1: z hasn't been defined (you haven't assigned a value to z)
-# Challenge 2: There is a space in the variable name "group 1" - python will assume that the space indicates the end of the variable name.
+# Challenge 2: There is a space in the variable name "group 1" - should be "group1" or "group_1"
 # Challenge 3: "Group1" in should be spelt as "group1" in the line that says Group1 + group2
 # Challenge 4: In mathematics, any values divided by zero is undefined.
 ----
@@ -155,7 +157,8 @@ a + 5
 # Challenge 1: "def" should be inside quotation marks.
 # Challenge 2: "patientid" should be inside quotation marks.
 # Challenge 3: "patient" is a string and cannot be added to numbers.
-# Challenge 4: "123" is a string (because it's inside quotation marks), and therefore cannot be added to numbers.
+# Challenge 4: "123" is a string (because it's inside quotation marks), 
+#              and therefore cannot be added to numbers.
 ----
 ====
 
@@ -196,7 +199,10 @@ a[0]
 a = ["A", "A", "B"]
 b = [1, 2, 4]
 
-# Challenge 2: a) How many amino acid residues are there in this sequence. b) How many are there that's left over (i.e. less than 3 so don't form a codon). c) Please store the sequence code for codons (i.e. remove the nucleotides that don't form a condon). Please write it in a way that you can change the sequence value into anything and would still work.
+# Challenge 2: a) How many amino acid residues are there in this sequence. 
+#              b) How many are there that's left over (i.e. less than 3 so don't form a codon). 
+#              c) Please store the sequence code for codons (i.e. remove the nucleotides that don't form a condon). 
+# Please write it in a way that you can change the sequence value into anything and would still work.
 sequence = "ATGTTTGTTTTTCTTGTTTT"
 
 ----
@@ -247,8 +253,8 @@ patient_metadata['Sub2']['age']
 ----
 # Challenge 1: (fix the code below)
 gender_convert = {"M" = "male", "F"= "female"}
-# Challenge 2: Given the patient_metadata dictionary above, write code that will print out the patient age and gender in a continuous sentence, for example
-# "Sub1 is 60 year-old and male."
+# Challenge 2: Given the patient_metadata dictionary above, write code that will print out the patient age and gender in a continuous sentence
+# For exampl, "Sub1 is 60 year-old and male."
 # Hint 1 - set a variable that store each of the variables
 patient_interest = "Sub1"
 # Hint 2 - complete the line below
