@@ -408,9 +408,11 @@ for current_id in mouse_id:
 === Challenge
 [source,python]
 ----
-## Challenge 1: Loop through A to H and 1 to 12 to print out every well in a 96-well plate (i.e. A1, A2... H11, H12)
+## Challenge 1: Loop through A to H and 1 to 12 to print out 
+# every well in a 96-well plate (i.e. A1, A2... H11, H12)
 
-## Challenge 2: Why does the below not give me the correct combination of Mouse and Day (i.e. why is Mouse A always matched with Day 1)?
+## Challenge 2: Why does the below not give me the correct combination of Mouse and Day 
+# (i.e. why is Mouse A always matched with Day 1)?
 mouse_id = ["A", "B", "C"]
 treatment_day = [1, 2, 3]
 # Loop through mouse
@@ -434,7 +436,9 @@ for current_id in mouse_id:
     print(current_mouse + " " + current_day)
 ----
 
-
+.Answer
+[%collapsible]
+====
 [source,python]
 ----
 ## Challenge 1:
@@ -444,7 +448,10 @@ for letter in letters:
         print(letter + str(number))
 
 
-## Challenge 2: the index for looping through mouse and treatment are the same (idx). The current_mouse should be defined within the mouse loop - it's instead defined within the treatment_day loop, therefore using the idx in the treatment_day loop.
+## Challenge 2: the index for looping through mouse and treatment are the same (idx). 
+# The current_mouse should be defined within the mouse loop - 
+# it's instead defined within the treatment_day loop, 
+# therefore using the idx in the treatment_day loop.
 mouse_id = ["A", "B", "C"]
 treatment_day = [1, 2, 3]
 # Loop through mouse
@@ -456,7 +463,10 @@ for idx in range(len(mouse_id)):
         print(current_mouse + " " + current_day)
 
 
-## Challnge 3: The indentation indicate which loop the code is in - the print line was in the same block as mouse, so it would only print the line after running through all loops for the treatment_day, hence all lines printed out are on Day3. Corrected code below
+## Challnge 3: The indentation indicate which loop the code is in - 
+# the print line was in the same block as mouse, 
+# so it would only print the line after running through all loops for the treatment_day, 
+# hence all lines printed out are on Day3. Corrected code below
 # Loop through mouse
 for current_id in mouse_id:
     current_mouse = "Mouse" + current_id
@@ -467,3 +477,4 @@ for current_id in mouse_id:
         # This line need to have the correct indentation to indicate that it's within the treatment_day loop
         print(current_mouse + " " + current_day)
 ----
+====
