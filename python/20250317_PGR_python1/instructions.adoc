@@ -302,7 +302,168 @@ my_sequence = list(my_sequence)
 my_sequence
 
 # By using loop, you can go through each element in a list.
-for element in my_sequence:
+for nucleotide in sequence:
+    print("the current nucleotide is :" + nucleotide)
+
+# You can also loop through indexes 
+# range creates a sequence of number, starting with the first number and ends 
+# just before the second number with 1 increment. 
+# For example, range(0,3) makes a sequence of 0, 1, 2. It's a bit like lists,
+# but it's not a list (try checking its type using type). 
+# By default the first number is zero, 
+# so range(3) and range(0,3) are the same thing.
+for idx in range(0,len(sequence)):
+    nucleotide = sequence[idx]
+    print("The current nucleotide is :" + nucleotide)
+
+# The indentation (number of spaces before the line) 
+# indicate which part of the code is within a loop 
+for nucleotide in sequence:
+    nucleotide = sequence[idx]
+print("The current nucleotide is :" + nucleotide)
+
+# You can use existing libraries to find out all files/folders in a folder 
+# Import library
+import os
+# List files in a directory
+# The slashes need to forward slash (i.e. /)
+# Replace the below with a folder in your computer
+folder = "C:/Users/shihb/local_documents"
+# list the directories in your folder
+folder_content = os.listdir(folder)
+# Loop through each directory
+for current_content in folder_content:
+    print(current_content)
+    
+----
+
+=== Challenge
+[source,python]
+----
+## Challenge 1: Loop through the variables below and print out the index, 
+# corresponding nucleotide and quality at the same time duing each loop 
+# (i.e. loop 0: A9, loop 1: T=, loop 2: CA, loop 3: GA )
+sequence = "ATCG"
+sequence_quality = "9=AA"
+# Hint: Loop through indexes
+
+## Challenge 2: Please make a string that contains the complementary sequence for "ATCGGC".
+# Hint: Look back on what was covered in dictionary and lists.
+
+----
+.Answer
+[%collapsible]
+====
+[source,python]
+----
+## Challenge 1
+# Looping through indexes allows you to loop through 2 different lists/strings at the same time
+sequence = "ATCG"
+sequence_quality = "9=AA"
+for idx in range(len(sequence)):
+    current_nucletide = sequence[idx]
+    current_quality = sequence_quality[idx]
+    # Store the sentence to print out
+    # You can use %s to substitute string %d to substitute digit 
+    # and put all your variables in %(var1, var2, var3) 
+    print("Loop " + str(idx) + ": " + current_nucletide + current_quality)
+
+## Challenge 2: 
+# Make a dictionary that converts nucleotide to its complement
+complement = { 'A': 'T',
+                'T' : 'A',
+                'C' : 'G',
+                'G' : 'C' }
+# Declare an empty list
+complement_sequence = []
+# Loop through the sequence 
+sequence = "ATCGGC"
+for nucleotide in sequence:
+    complement_nucleotide = complement[nucleotide]
+    complement_sequence.append(complement_nucleotide)
+# Join the list back into a string
+complement_sequence = "".join(complement_sequence)
+complement_sequence
+
+----
+====
+
+== Nested loop 
+[source,python]
+----
+# You can have a loop within a loop. 
+mouse_id = ["A", "B", "C"]
+treatment_day = [1, 2, 3]
+# Loop through mouse
+for current_id in mouse_id:
+    current_mouse = "Mouse" + current_id
+    # Loop through treatment
+    for current_day in treatment_day:
+        # Remember to turn integers into string
+        current_day = "Day" + str(current_day)
+        print(current_mouse + " " + current_day)
+
+----
+
+=== Challenge
+[source,python]
+----
+## Challenge 1: Loop through A to H and 1 to 12 to print out every well in a 96-well plate (i.e. A1, A2... H11, H12)
+
+## Challenge 2: Why does the below not give me the correct combination of Mouse and Day (i.e. why is Mouse A always matched with Day 1)?
+mouse_id = ["A", "B", "C"]
+treatment_day = [1, 2, 3]
+# Loop through mouse
+for idx in range(len(mouse_id)):
+    # Loop through treatment
+    for idx in range(len(treatment_day)):
+        current_mouse = "Mouse" + mouse_id[idx]
+        current_day = "Day" + str(treatment_day[idx])
+        print(current_mouse + " " + current_day)
+
+## Challnge 3: Why does the below only print some of the mouse-day combinations
+mouse_id = ["A", "B", "C"]
+treatment_day = [1, 2, 3]
+# Loop through mouse
+for current_id in mouse_id:
+    current_mouse = "Mouse" + current_id
+    # Loop through treatment
+    for current_day in treatment_day:
+        # Remember to turn integers into string
+        current_day = "Day" + str(current_day)
+    print(current_mouse + " " + current_day)
+----
 
 
+[source,python]
+----
+## Challenge 1:
+letters = "ABCDEFGH"
+for letter in letters:
+    for number in range(1,13):
+        print(letter + str(number))
+
+
+## Challenge 2: the index for looping through mouse and treatment are the same (idx). The current_mouse should be defined within the mouse loop - it's instead defined within the treatment_day loop, therefore using the idx in the treatment_day loop.
+mouse_id = ["A", "B", "C"]
+treatment_day = [1, 2, 3]
+# Loop through mouse
+for idx in range(len(mouse_id)):
+    current_mouse = "Mouse" + mouse_id[idx]
+    # Loop through treatment
+    for idx in range(len(treatment_day)):
+        current_day = "Day" + str(treatment_day[idx])
+        print(current_mouse + " " + current_day)
+
+
+## Challnge 3: The indentation indicate which loop the code is in - the print line was in the same block as mouse, so it would only print the line after running through all loops for the treatment_day, hence all lines printed out are on Day3. Corrected code below
+# Loop through mouse
+for current_id in mouse_id:
+    current_mouse = "Mouse" + current_id
+    # Loop through treatment
+    for current_day in treatment_day:
+        # Remember to turn integers into string
+        current_day = "Day" + str(current_day)
+        # This line need to have the correct indentation to indicate that it's within the treatment_day loop
+        print(current_mouse + " " + current_day)
 ----
