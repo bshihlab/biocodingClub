@@ -253,8 +253,9 @@ patient_metadata['Sub2']['age']
 ----
 # Challenge 1: (fix the code below)
 gender_convert = {"M" = "male", "F"= "female"}
-# Challenge 2: Given the patient_metadata dictionary above, write code that will print out the patient age and gender in a continuous sentence
-# For exampl, "Sub1 is 60 year-old and male."
+# Challenge 2: Given the patient_metadata dictionary above, 
+# write code that will print out the patient age and gender in a continuous sentence
+# For example, "Sub1 is 60 year-old and male."
 # Hint 1 - set a variable that store each of the variables
 patient_interest = "Sub1"
 # Hint 2 - complete the line below
