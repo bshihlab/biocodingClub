@@ -1,0 +1,405 @@
+= Short Introduction to Python Programming 2
+
+== Conditional
+
+[source,python]
+----
+# You can check if something is true
+# Equals
+1 == 1
+# Not equals
+1 != 1
+# Less than
+1 < 1
+# Less than or equal to
+1 <= 1
+# Greater than
+1 > 1
+# Greater than or equal to
+1 >= 1
+
+# The data type from this comparison is called Boolean (or Bool)
+type(1>1)
+
+----
+
+[source,python]
+----
+# Conditional (If) statments can be used to ensure instruction are 
+# only carried out when a condition is met
+x = 11
+if(x>10):
+    # you can use %d to indicate digits, and %s to indicate string,
+    # then put the variables for each substituted values at the end of the string
+    print("%d is larger than 10." %(x))
+
+# You can add an "else statment" to give instructions for
+# when the condition is not met.
+if(x>10):
+    print("%d is larger than 10." %(x))
+else:
+    print("%d is smaller than or equal to 10." %(x))
+
+# You can put the If statments inside a loop
+# Remember to have the correct number of tabs
+for x in range(20):
+    if(x>10):
+        print("%d is larger than 10." %(x))
+    else:
+        print("%d is smaller than or equal to 10." %(x))
+
+# You can have an elseif statement, 
+# then the conditions will be checked in order
+for x in range(20):
+    if(x>15):
+        print("Great!")
+    elif(15>x>10):
+        print("Good")
+    else:
+        print("Not so good")
+
+----
+
+[source,python]
+----
+# You can check if a value is in a list/in the keys of a dictionary
+a = "apple"
+b = ["apple", "pear", "orange"]
+c = {"apple": 1, "banana": "orange", "pear": 0}
+a in b
+a in c
+"pear" in c
+
+if(a in b):
+    print("a is in b")
+else:
+    print("a is not in b")
+
+# You can also check if some letters are in a string
+"a" in "apple"
+".txt" in "sample_list.txt"
+
+# You can use "and" and "or" to combine conditions
+# You don't have to have the brackets, but I find it improves readability
+("a" in "apple") and ("b" in "banana")
+("a" in "apple") and ("b" in "pear")
+("a" in "apple") or ("b" in "pear")
+("a" in "apple") or (1 > 10)
+
+
+
+----
+=== Challenge
+[source,python]
+----
+# Challenge 1
+# Given the dictionary above, why is the below False?
+"orange" in c 
+# Challenge 2
+# Fix the code below (4 errors)
+x = "10"
+if(x = 10):
+print("x is 10")
+    else:
+    print("x is not 10")
+
+----
+
+.Answer
+[%collapsible]
+====
+[source,python]
+----
+# Challenge 1. "orange" is not a key - it's a value under the key "banana"
+# Challenge 2.
+x = 10
+if(x == 10):
+    print("x is 10")
+else:
+    print("x is not 10")
+
+----
+====
+
+== Functions 
+
+[source,python]
+----
+# You can make a function to bundle a set of instructions
+# This is often what you're using when you use tools developed by others
+# Learning about how you make your own function can help 
+# understanding how to use functions developed by other people.
+
+# Create a simple function that prints a message
+def say_something(x):
+    out = "Say " + x
+    return(out)
+
+say_something("hey")
+
+# Values in a function are often defined as x, 
+# but you can define it with other variable names tools
+def say_something(something):
+    out = "Say " + something
+    return(out)
+say_something("hey")
+
+# You can have more than 1 value
+def say_something(x, y):
+    out = "Say " + x + ", and then " + y
+    return(out)
+say_something("hey", "there")
+
+# By default the function will assume the input values (parameters) are entered in order
+# (i.e. the first value is the first variable, the second value is the second variable)
+# However, you can also specify your parameters
+say_something(x = "first value", y = "second value")
+
+# Notice that when you specify your input values, it will assign the value to the
+# correct parameters and you can enter your parameters "out of order"
+# This is why in tutorials on how to use an existing tool,
+# sometimes the parameters have specified (e.g. x=), 
+# and often they are not specified 
+# (because the tutorial entered the parameters in the order they are stated in the function)
+say_something(y = "first value", x = "second value")
+
+
+# You can have pre-defined value for your functions
+def say_something(x = "nothing"):
+    out = "Say " + x
+    return(out)
+
+# Then you don't have to put any parameters to call the function
+say_something()
+
+
+
+----
+
+=== Challenge
+[source,python]
+----
+# Challenge 1
+# Make a function that takes in two parameters (a number and a string), 
+# and print out something like "5 samples" 
+# when "5" and "samples" were given to the function
+
+# Challenge 2
+# Make a function that converts Celicus to Kelvin
+# And print "It's very hot" if it's more than 35 Celicus 
+# Kelvin is Celsius + 273.15
+
+# Challenge 3
+# Write a function that can convert a given DNA sequence into its complementrary sequence.
+# It should be able to accept both lower and upper case as inputs
+# It should print N for anything that's not ATCG
+
+----
+.Answer
+[%collapsible]
+====
+[source,python]
+----
+# Challenge 1: 
+def print_fun(x, y):
+    out = str(x) + " " + y
+    return(out)
+
+# Challenge 2: 
+def temp_convert(C):
+    K = C + 273.15
+    if C > 35:
+        print("It's very hot")
+    return(K)
+
+# Challenge 3:
+def complement_my_dna(sequence):
+    # Dictionary that containing information on what is the complementrary sequence
+    complement_dict = {"A": "T", "T" : "A", "C" : "G", "G" : "C"}
+    # Empty string that will become the complementrary sequence
+    out_sequence=""
+    # Because my dictionary only has capital letters,
+    # Convert the input sequence into all capital letters
+    sequence = sequence.upper()
+    # do this for each of the nucleotide in the input sequence
+    for nucleotide in sequence:
+        # Get the complementrary nucleotide
+        if(nucleotide in complement_dict):
+            complement_nucleotide = complement_dict[nucleotide]
+        else:
+            complement_nucleotide = "N"
+        # Add the new nucleotide to the output sequence
+        out_sequence = out_sequence + complement_nucleotide
+    return(out_sequence)
+----
+====
+
+=== Import library
+
+
+[source,python]
+----
+# You can import libraries with functions that allow you to do specific tasks.
+# Related phrases you may have heard include packages and modules.
+# There are subtle differences between these terms in python, but don't worry about them for now.
+
+# Python has several standard libraries that are already installed
+# Import the os library - this library allows python to interact with your operating system
+import os
+
+# This allows you to list all the files/folders in a specified folder (dir/directory) 
+# (or your current working directory if not specified)
+os.listdir()
+
+# You an specify a folder
+os.listdir("OneDrive - Lancaster University")
+
+# You can use slashes to indicate subfolders
+# Notice that Python uses forward slashes (/) when indicating folders,
+# whereas Windows use backward slashes (\)
+# If you copied your folder path from Windows, remember to change the slashes
+os.listdir("OneDrive - Lancaster University/example_data")
+
+# You can also change your working directory
+# Once you have changed your working directory, 
+# this folder becomes your point of reference
+os.chdir("OneDrive - Lancaster University/example_data")
+os.listdir()
+
+# You can check if something is a file or a folder (dir/directory)
+os.isdir("collected_data")
+
+----
+
+
+[source,python]
+----
+## Challenge 1: Change your working directory to a different folder
+
+## Challenge 2: List files/folders in a folder
+
+## Challenge 3: Download the example_data folder as a zip file and extract it.
+# Print out the names of all files/folders within the (first level of) example_data.
+# Hint: You can use os.isdir() to check if something is a file or a folder (dir/directory)
+
+----
+
+.Answer
+[%collapsible]
+====
+
+[source,python]
+----
+## Challenge 3:
+# Folder for looping through 
+main_folder = "C:/Users/shihb/local_documents/collected_data"
+# list the directories in your folder
+filefoler_list = os.listdir(main_folder)# Loop through the files within each folder (dir/directory)
+for filefolder in filefoler_list:
+    # Add the path from your folder to form the full path for each of the file/subfolder
+    filefolder_path = main_folder + "/" + filefolder
+
+    # Check if this is a file or a folder
+    # Only perform the following if it is a folder
+    if os.isdir(filefolder_path):
+        # Find out what files are in the subfolder referred to in the current loop
+        files_in_subfolder = os.listdir(subfolder_path)
+        # Go through each of these files and print them out
+        for current_file in files_in_subfolder:
+            # Add the file path from your folder to form the full file path for each of the subfolder
+            print(current_file)
+----
+====
+
+== Pandas: Navigating dataframes
+[source,python]
+----
+# Pandas and numpy are two libraries that are commonly used for data processing in python
+# Numpy uses slightly different data structure from the traditional python lists,
+# which makes it substantially faster when used well.
+# Therefore, a lot of the data-centric libraries use numpy.
+# Pandas uses numpy and is useful for data cleaning and processing. 
+# Pandas is also commonly used in data wrangling and by bioinformatics tools.
+
+# Change your working directory to the folder containing the downloaded example_data
+
+# You can import a library and give it a short name
+import numpy as np
+import pandas as pd
+
+# Read in a csv file
+metadata = pd.read_csv("example_data/metadata/subject.csv")
+
+# Take a look at the imported data
+metadata
+
+# Look at the object type
+type(metadata)
+
+# You can find out the dtat types for each column
+metadata.dtypes
+
+# You can find out the shape (rows, columns) of the data frame 
+metadata.shape
+
+# You can get a list of column names
+metadata.columns
+
+# You can get a list of indexes (row names)
+metadata.index
+
+
+# You can look at the top/bottom of the data
+# The pandas.core.frame.DataFrame object type has associated functions
+# Much like how you can do "abc".upper() that turns the string into "ABC"
+# Or how "-".join(["a","b","c"]) makes "a-b-c"
+metadata.head()
+metadata.tail()
+
+# You can specify the top 5
+metadata.head(5)
+
+
+# You can refer to a specific column by using . or [column_name]
+metadata.subject_id
+metadata["subject_id"]
+
+# Check the data type for columns
+type(metadata.subject_id)
+
+# You can turn the data type into lists
+list(metadata.subject_id)
+
+
+# You can set a column as your index
+metadata.set_index(metadata.subject_id)
+
+# You can find out the unique values for a column
+pd.unique(metadata['treatment'])
+
+
+----
+
+== Pandas: Working with data
+[source,python]
+----
+# You can get an overview on data
+metadata.age.describe()
+metadata.age.min()
+metadata.age.max()
+metadata.age.mean()
+metadata.age.std()
+metadata.age.count()
+
+# Remember you can also use square brackets to refer to columns
+metadata['age'].count()
+
+# You can group data by columns
+grouped_data = metadata.groupby('gender')
+grouped_data.describe()
+
+# You can write the above in one single line
+metadata.groupby('gender').describe()
+
+metadata.groupby('gender').describe()['count']
+----

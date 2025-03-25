@@ -434,7 +434,9 @@ for current_id in mouse_id:
     print(current_mouse + " " + current_day)
 ----
 
-
+.Answer
+[%collapsible]
+====
 [source,python]
 ----
 ## Challenge 1:
@@ -467,3 +469,4 @@ for current_id in mouse_id:
         # This line need to have the correct indentation to indicate that it's within the treatment_day loop
         print(current_mouse + " " + current_day)
 ----
+====
