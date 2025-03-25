@@ -267,7 +267,7 @@ os.chdir("OneDrive - Lancaster University/example_data")
 os.listdir()
 
 # You can check if something is a file or a folder (dir/directory)
-os.isdir("collected_data")
+os.path.isdir("collected_data")
 
 ----
 
@@ -280,7 +280,7 @@ os.isdir("collected_data")
 
 ## Challenge 3: Download the example_data folder as a zip file and extract it.
 # Print out the names of all files/folders within the (first level of) example_data.
-# Hint: You can use os.isdir() to check if something is a file or a folder (dir/directory)
+# Hint: You can use os.path.isdir() to check if something is a file or a folder (dir/directory)
 
 ----
 
@@ -301,7 +301,7 @@ for filefolder in filefoler_list:
 
     # Check if this is a file or a folder
     # Only perform the following if it is a folder
-    if os.isdir(filefolder_path):
+    if os.path.isdir(filefolder_path):
         # Find out what files are in the subfolder referred to in the current loop
         files_in_subfolder = os.listdir(subfolder_path)
         # Go through each of these files and print them out
@@ -401,5 +401,17 @@ grouped_data.describe()
 # You can write the above in one single line
 metadata.groupby('gender').describe()
 
-metadata.groupby('gender').describe()['count']
+----
+
+[source,python]
+----
+# You can combine 2 data frames
+day1_data1 = pd.read_csv("collected_data/day1/data1.csv")
+day1_data2 = pd.read_csv("collected_data/day1/data2.csv")
+metadata = pd.read_csv("example_data/metadata/subject.csv")
+
+vertical_stack = pd.concat([day1_data1, day1_data2], axis=0)
+
+merge_df = pd.merge(left=metadata, right=vertical_stack, left_on='species_id', right_on='species_id')
+
 ----
