@@ -310,3 +310,23 @@ p <- p + scale_color_viridis()
 p <- p + scale_color_viridis(option="A")
 ```
 
+### 7. S4 Class
+```r
+# Create a class called "myBasket"
+setClass("shopping", slots = c(item="character", cost="numeric"))
+
+# create an object using this new class
+myBasket <- new("shopping", item="apple", cost=70)
+
+myBasket <- new("shopping", item="apple", cost=70)
+
+# check class
+class(myBasket)
+
+# You can find the values in each slot by using the @ symbol
+myBasket@item
+
+# Add a function to the class
+setGeneric("printCost", function(x) standardGeneric("printCost"))
+setMethod("printCost", "shopping", function(x)print(paste(x@item, "costs", x@cost, "p")))
+printCost(myBasket) 
